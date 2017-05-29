@@ -1,22 +1,19 @@
 import unittest
 def chop(num, arr):
     """"""
-    # import pdb
-    # pdb.set_trace()
     pivot = len(arr) // 2
 
-    try:
-        if not len(arr):
-            raise RuntimeError("Not in arr.")
-
-        if num == arr[pivot]:
-            return pivot
-        elif num > arr[pivot]:
-            return chop(num, arr[:pivot]) + pivot
-        else:
-            return chop(num, arr[pivot+1:])
-    except RuntimeError:
+    if not len(arr):
         return -1
+
+    if num == arr[pivot]:
+        return pivot
+    elif num < arr[pivot]:
+        return chop(num, arr[:pivot])
+    else:
+        ret = chop(num, arr[pivot+1:])
+        return -1 if ret == -1 else ret + pivot + 1
+
 
 class test_chop(unittest.TestCase):
     def test_chop(self):
